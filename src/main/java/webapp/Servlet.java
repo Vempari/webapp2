@@ -1,18 +1,15 @@
 package webapp;
 
+import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 
+   @WebServlet("/ejbServlet")
 public class Servlet extends javax.servlet.http.HttpServlet {
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
-            throws javax.servlet.ServletException, IOException {
-
-    }
-
+    @EJB
+    EJBLogic ejbLogic;
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws javax.servlet.ServletException, IOException {
-        PrintWriter pw = response.getWriter();
-        pw.println("Hello, servlet!");
-
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }
