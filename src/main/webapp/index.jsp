@@ -1,13 +1,22 @@
 <%@ page import="webapp.EJBLogic" %>
+<%@ page import="java.net.URLClassLoader" %>
+<%@ page import="java.net.URL" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.net.URLDecoder" %>
 <html>
 <body>
 <h2>
     <%
         EJBLogic ejbLogic = new EJBLogic();
-        String result = "";
-        for (String str : ejbLogic.doRecursion()) {
-            result = result + "<p>" + str + "</p>";
-        }
+        File currentClass = new File(URLDecoder.decode(EJBLogic.class
+                .getProtectionDomain()
+                .getCodeSource()
+                .getLocation()
+                .getPath(), "UTF-8"));
+        String classDirectory = currentClass.getParent();
+
+
+        String result = ejbLogic.doRecursion(classDirectory);
     %>
     <%= result%>
 </h2>

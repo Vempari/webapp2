@@ -7,19 +7,25 @@ import java.util.List;
 
 @Stateless
 public class EJBLogic {
-    public List<String> doRecursion() {
-        File file = new File("src");
+    public String doRecursion(String path) {
         List<String> list = new ArrayList<>();
-        searchForDatFiles(file, list);
-        return list;
+        File file = new File(path);
+        searchFiles(file, list);
+        String result = "";
+        for (String str : list) {
+            result = result + "<p>" + str + "</p>";
+        }
+        return result;
+
+
     }
 
 
-    public void searchForDatFiles(File root, List<String> list) {
+    public void searchFiles(File root, List<String> list) {
         if(root == null || list == null) return;
         if(root.isDirectory()) {
             for(File file : root.listFiles()) {
-                searchForDatFiles(file, list);
+                searchFiles(file, list);
             }
         }
         list.add(root.toString());
