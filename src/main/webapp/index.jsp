@@ -3,11 +3,13 @@
 <%@ page import="java.net.URL" %>
 <%@ page import="java.io.File" %>
 <%@ page import="java.net.URLDecoder" %>
+<%@ page import="javax.naming.InitialContext" %>
 <html>
 <body>
 <h2>
     <%
-        EJBLogic ejbLogic = new EJBLogic();
+        InitialContext ctx = new InitialContext();
+        EJBLogic ejbLogic = (EJBLogic) ctx.lookup("java:global/webapp/EJBLogic");
         File currentClass = new File(URLDecoder.decode(EJBLogic.class
                 .getProtectionDomain()
                 .getCodeSource()
