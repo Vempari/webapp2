@@ -5,22 +5,27 @@
 <%@ page import="java.net.URLDecoder" %>
 <%@ page import="javax.naming.InitialContext" %>
 <html>
+<header>
+    <title>
+        Привет из JSP!
+    </title>
+</header>
 <body>
-<h2>
-    <%
-        InitialContext ctx = new InitialContext();
-        EJBLogic ejbLogic = (EJBLogic) ctx.lookup("java:global/webapp/EJBLogic");
-        File currentClass = new File(URLDecoder.decode(EJBLogic.class
-                .getProtectionDomain()
-                .getCodeSource()
-                .getLocation()
-                .getPath(), "UTF-8"));
-        String classDirectory = currentClass.getParent();
+    <h2>
+        <%
+            InitialContext ctx = new InitialContext();
+            EJBLogic ejbLogic = (EJBLogic) ctx.lookup("java:global/webapp/EJBLogic");
+            File currentClass = new File(URLDecoder.decode(EJBLogic.class
+                    .getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .getPath(), "UTF-8"));
+            String classDirectory = currentClass.getParent();
 
 
-        String result = ejbLogic.doRecursion(classDirectory);
-    %>
-    <%= result%>
-</h2>
+            String result = ejbLogic.doRecursion(classDirectory);
+        %>
+        <%= result%>
+    </h2>
 </body>
 </html>
